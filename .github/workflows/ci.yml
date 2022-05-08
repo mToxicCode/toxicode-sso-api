@@ -1,0 +1,8 @@
+name: CI Workflow
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  dotnet-flow:
+    uses: mToxicCode/.github/.github/workflows/dotnet-service-ci.yml@master
