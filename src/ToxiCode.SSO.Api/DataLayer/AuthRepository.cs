@@ -59,7 +59,7 @@ public class AuthRepository
             cancellationToken);
     }
 
-    public async Task<User> GetUserByIdAsync(GetUserByIdCmd cmd, CancellationToken cancellationToken)
+    public async Task<User> GetUserByIdAsync(GetUserByIdCmd cmd, CancellationToken cancellationToken) 
     {
         var query = $@"SELECT id, username, role FROM users
                             WHERE id = @UserId;";
