@@ -1,0 +1,13 @@
+name: CI Prerelease Workflow
+on:
+  pull_request:
+    branches:
+      - master
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  dotnet-flow:
+    uses: mToxicCode/.github/.github/workflows/dotnet-service-prerelease-ci.yml@master
