@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{499FB6
 		.gitignore = .gitignore
 		.github\workflows\ci.yml = .github\workflows\ci.yml
 		.github\workflows\ci-prerelease.yml = .github\workflows\ci-prerelease.yml
+		.env = .env
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToxiCode.SSO.Api", "src\ToxiCode.SSO.Api\ToxiCode.SSO.Api.csproj", "{F5B0C8B1-81AD-4BA5-B8AB-21A1C9C74FD6}"
