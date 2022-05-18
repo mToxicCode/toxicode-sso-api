@@ -1,8 +1,24 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
-
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        libc6 \
+        libgcc1 \
+        libgssapi-krb5-2 \
+        libssl1.1 \
+        libstdc++6 \
+        zlib1g \
+        gss-ntlmssp \
+        jq \
+# Clean
+    && rm -rf /tmp/* \
+        /usr/share/man/?? \
+        /usr/share/man/??_* \
+        /var/lib/apt-get/lists/* \
+        /var/lib/apt/lists/* 
+        
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG GITHUB_USERNAME
 ARG GITHUB_TOKEN
