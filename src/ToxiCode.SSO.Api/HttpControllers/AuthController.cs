@@ -93,12 +93,14 @@ namespace ToxiCode.SSO.Api.HttpControllers
         
         [JwtAuthorize]
         [HttpGet("verify")]
-        public async Task<ActionResult<User>> Verify()
+        public async Task<ActionResult<AuthenticateResponse>> Verify()
         {
+            var isExtended = !string.IsNullOrEmpty(Request.Cookies["isExtended"]);
             var userMeta = (User?) HttpContext.Items["User"];
-            var cmd = new GetUserCommand(userMeta!.Id);
+            var cmd = new GetUserCommand(userMeta!.Id, HttpContext.GetIpAddress(), isExtended);
             var result = await _mediator.Send(cmd);
-            return result.User;
+            Response.SetTokenCookie(result.RefreshToken, isExtended);
+            return result;
         }
 
         [JwtAuthorize]
