@@ -3,6 +3,7 @@
 // Application services/DI Container configures ///////
 ///////////////////////////////////////////////////////
 
+using System.Reflection.Metadata;
 using MediatR;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
@@ -26,10 +27,23 @@ services.AddHttpContextAccessor();
 services.AddSingleton<HttpCancellationTokenAccessor>();
 services.AddEndpointsApiExplorer();
 services.AddSerilogLogger();
-services.AddOptions<AuthOptions>()
-    .Configure(opt => builder.Configuration
-        .GetSection(nameof(AuthOptions))
-        .Bind(opt));
+if (Environment.GetEnvironmentVariable(EnvironmentConstants.IsRunningInContainer) == "true")
+{
+    services.AddOptions<AuthOptions>()
+        .Configure(opt =>
+        {
+            opt.AuthKey = builder.Configuration[EnvironmentConstants.AuthKey]!;
+            opt.TokenLifeTimeMinutes = 5;
+        });
+}
+else
+{
+    services.AddOptions<AuthOptions>()
+        .Configure(opt => builder.Configuration
+            .GetSection(nameof(AuthOptions))
+            .Bind(opt));
+}
+
 
 services.AddSwagger();
 services.AddSingleton(new TokenValidationParameters

@@ -2,7 +2,7 @@
 
 public class AuthOptions
 {
-    public double TokenLifeTimeMinutes { get; init; }
+    public double TokenLifeTimeMinutes { get; set; }
 
-    public string? AuthKey { get; init; }
+    public string? AuthKey { get; set; }
 }
